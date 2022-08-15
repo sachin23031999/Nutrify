@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChatUserFragment">
+
+    <RelativeLayout
+        android:id="@+id/chat_title_bar"
+        android:layout_width="match_parent"
+        android:background="#00409A"
+        android:layout_height="60dp">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/chat_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_contacts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_add"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
