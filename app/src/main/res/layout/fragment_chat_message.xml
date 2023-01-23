@@ -19,6 +19,7 @@
             android:layout_gravity="center_vertical"/>
 
         <TextView
+            android:id="@+id/tvUserName"
             android:textSize="24dp"
             android:layout_margin="10dp"
             android:layout_gravity="center_vertical"
@@ -29,12 +30,12 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_above="@id/layoutSendMessage"
-        android:id="@+id/chatStack"
-        android:layout_below="@id/layoutUserInfo"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvChatStack"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_above="@id/layoutSendMessage"
+        android:layout_below="@id/layoutUserInfo" />
 
     <RelativeLayout
         android:id="@+id/layoutSendMessage"
@@ -44,7 +45,6 @@
         android:layout_height="80dp">
 
         <EditText
-            android:background="@color/white"
             android:id="@+id/messageBox"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -53,6 +53,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:layout_toStartOf="@id/fabSendMessage"
+            android:background="@color/white"
             android:gravity="center_vertical" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

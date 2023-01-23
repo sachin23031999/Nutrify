@@ -1,5 +1,10 @@
 package com.sachin.nutrify.dev.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+
+@Parcelize
 data class UserInfo(
     var name: String,
     var desc: String,
@@ -9,4 +14,4 @@ data class UserInfo(
     var price: String,
     var ratings: Int,
     var totalChatDone: Int
-)
+): Parcelable

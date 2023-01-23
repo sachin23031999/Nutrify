@@ -8,9 +8,8 @@
     <RelativeLayout
         android:id="@+id/chat_title_bar"
         android:layout_width="match_parent"
-        android:background="#00409A"
-        android:layout_height="60dp">
-    </RelativeLayout>
+        android:layout_height="60dp"
+        android:background="#00409A"></RelativeLayout>
 
     <RelativeLayout
         android:layout_below="@id/chat_title_bar"

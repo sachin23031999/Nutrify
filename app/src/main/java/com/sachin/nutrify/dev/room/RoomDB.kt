@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.TypeConverters
+import com.sachin.nutrify.dev.model.FUser
 import com.sachin.nutrify.dev.model.User
 
 @Database(entities = [
@@ -15,7 +16,7 @@ import com.sachin.nutrify.dev.model.User
 //@TypeConverters(Converters::class)
 abstract class RoomDB : RoomDatabase() {
 
-    abstract fun userDetailDao(): User
+    abstract fun userDetailDao(): UserDetailDao
 
     companion object {
 

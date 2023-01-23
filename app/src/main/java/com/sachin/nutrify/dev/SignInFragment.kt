@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
@@ -17,17 +18,14 @@ import com.sachin.nutrify.dev.utils.Constants
 import com.sachin.nutrify.dev.utils.Logger.Companion.d
 import com.sachin.nutrify.dev.utils.SharedPrefHelper
 import com.sachin.nutrify.dev.utils.Utils
+import kotlinx.android.synthetic.main.fragment_sign_in.*
+import kotlinx.android.synthetic.main.fragment_sign_in.view.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SignInFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class SignInFragment : Fragment() {
     private val TAG = SignInFragment::class.java.simpleName
     private val viewModel: SharedViewModel by viewModels()
@@ -59,11 +57,11 @@ class SignInFragment : Fragment() {
         d(TAG, "onViewCreated()")
 
         binding = FragmentSignInBinding.inflate(layoutInflater)
-        val id = binding.tvEmailId.text.toString()
-        val password = binding.tvPassword.text.toString()
 
-        view.findViewById<MaterialTextView>(R.id.tvSignUp).setOnClickListener {
+
+        view.tvSignUp.setOnClickListener {
             d(TAG, "signup clicked")
+
             Utils.navigateTo(
                 requireActivity(),
                 R.id.fragment_container,
@@ -71,17 +69,26 @@ class SignInFragment : Fragment() {
                 ""
             )
         }
-        binding.btLogin.setOnClickListener {
+        view.btLogin.setOnClickListener {
             d(TAG, "login clicked")
+            val id = tvEmailId.text.toString()
+            val password = tvPassword.text.toString()
             if (isValidDetails(id, password)) {
+                var temp = false
                 viewModel.signIn(id, password, object : FirestoreDbHelper.SignInListener {
                     override fun signInSuccess() {
+                        d(TAG, "signInSuccess()")
                         //launch chat activity
-                        val intent = Intent(requireActivity(), ChatActivity::class.java)
-                        startActivity(intent)
+                        //if(!temp) {
+                            temp = true
+
+                            val intent = Intent(requireActivity(), ChatActivity::class.java)
+                            startActivity(intent)
+                        //}
                     }
 
                     override fun signInFailure() {
+                        d(TAG, "signInFailure()")
                         Toast.makeText(requireActivity(), "User not found", Toast.LENGTH_SHORT)
                             .show()
                     }

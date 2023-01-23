@@ -31,4 +31,12 @@ class SharedPrefHelper private constructor(){
     fun getBoolean(key: String): Boolean {
         return sharedPref.getBoolean(key, false)
     }
+
+    fun putString(key: String, value: String) {
+        sharedPref.edit().putString(key, value).apply()
+    }
+
+    fun getString(key: String): String? {
+        return sharedPref.getString(key, null)
+    }
 }

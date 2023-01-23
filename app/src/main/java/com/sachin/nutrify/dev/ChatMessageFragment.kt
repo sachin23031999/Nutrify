@@ -5,27 +5,31 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.sachin.nutrify.dev.adapter.MessageAdapter
+import com.sachin.nutrify.dev.firebase.FirestoreDbHelper
+import com.sachin.nutrify.dev.model.ChatMessage
+import com.sachin.nutrify.dev.model.FUser
+import com.sachin.nutrify.dev.utils.Constants
+import com.sachin.nutrify.dev.utils.Logger.Companion.d
+import com.sachin.nutrify.dev.utils.SharedPrefHelper
+import com.sachin.nutrify.dev.utils.Utils
+import kotlinx.android.synthetic.main.fragment_chat_message.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val USER_INFO = "userInfo"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ChatMessageFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ChatMessageFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
+    private val TAG = ChatMessageFragment::class.java.simpleName
+    private var mUser: FUser? = null
+    private val chatViewModel: ChatViewModel by viewModels()
+    private val pref = SharedPrefHelper.getInstance(context)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            mUser = it.getParcelable(USER_INFO)
+
         }
     }
 
@@ -37,22 +41,54 @@ class ChatMessageFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_chat_message, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        tvUserName.text = mUser?.firstName + " " + mUser?.lastName
+
+        val recyclerView = rvChatStack
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        val adapter = MessageAdapter(mUser?.id!!)
+        recyclerView.adapter = adapter
+       // adapter.addMessage(Utils.generateDummyMessages(10))
+
+        fabSendMessage.setOnClickListener {
+            val msg = ChatMessage(
+                pref.getString(Constants.SIGNED_IN_USER_UID)!!,
+                mUser?.id!!,
+                messageBox.text.toString(),
+                Utils.currentTmsInMillis()
+            )
+            messageBox.setText("")
+            chatViewModel.sendMessage(msg)
+        }
+
+        chatViewModel.getMessages(mUser?.id!!, object: FirestoreDbHelper.GetMessagesListener {
+            override fun getMessagesSuccess(list: List<ChatMessage>) {
+                d(TAG, "getMessagesSuccess()")
+                list.forEach {
+                    d(TAG, "msg -> $it")
+                }
+                adapter.addMessage(list)
+                if(list.isNotEmpty()) recyclerView.smoothScrollToPosition(list.size-1)
+            }
+
+            override fun getMessagesFailure() {
+
+            }
+
+        })
+
+
+    }
+
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ChatMessageFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(userInfo: FUser) =
             ChatMessageFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putParcelable(USER_INFO, userInfo)
                 }
             }
     }

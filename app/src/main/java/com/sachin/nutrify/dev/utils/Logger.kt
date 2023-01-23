@@ -6,13 +6,13 @@ import android.util.Log
 class Logger {
     companion object {
         fun d(tag: String, message: String) {
-            Log.d("[$tag]", message)
+            Log.d("nutrifyLog [$tag]", message)
         }
         fun e(tag: String, message: String) {
-            Log.e("[$tag]", message)
+            Log.e("nutrifyLog [$tag]", message)
         }
         fun i(tag: String, message: String) {
-            Log.i("[$tag]", message)
+            Log.i("nutrifyLog [$tag]", message)
         }
     }
 }

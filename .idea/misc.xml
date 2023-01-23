@@ -21,10 +21,17 @@
         <entry key="..\:/Android_projects/Nutrify/app/src/main/res/layout/fragment_chat_user.xml" value="0.20416666666666666" />
         <entry key="..\:/Android_projects/Nutrify/app/src/main/res/layout/fragment_sign_in.xml" value="0.20416666666666666" />
         <entry key="..\:/Android_projects/Nutrify/app/src/main/res/layout/fragment_signup.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/activity_chat.xml" value="0.1796875" />
+        <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/activity_splash.xml" value="0.1796875" />
+        <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/fragment_chat_message.xml" value="0.1796875" />
+        <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/fragment_chat_user.xml" value="0.1796875" />
+        <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/layout_received_message.xml" value="0.1796875" />
+        <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/layout_sent_message.xml" value="0.1796875" />
+        <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/user_info_adapter.xml" value="0.1796875" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
