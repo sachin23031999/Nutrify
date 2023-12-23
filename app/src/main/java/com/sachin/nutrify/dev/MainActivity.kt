@@ -10,17 +10,20 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
+import com.sachin.nutrify.dev.model.ChatMessage
 import com.sachin.nutrify.dev.utils.Constants
 import com.sachin.nutrify.dev.utils.Constants.Companion.IS_SIGNED_IN
 import com.sachin.nutrify.dev.utils.Logger.Companion.d
 import com.sachin.nutrify.dev.utils.SharedPrefHelper
 import com.sachin.nutrify.dev.utils.Utils
+import com.sachin.nutrify.dev.webrtc.RTCActivity
 
 
 class MainActivity : AppCompatActivity() {
    // private lateinit var binding: ActivitySignInBinding
     private lateinit var sharedPref: SharedPrefHelper
+    private val db = FirebaseFirestore.getInstance()
     private val TAG = MainActivity::class.java.simpleName
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +46,36 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show()
         }
 
+        if(sharedPref.getString(Constants.SIGNED_IN_USER_UID) == null) return
+        db.collection(Constants.Database.CALLS)
+            .document(sharedPref.getString(Constants.SIGNED_IN_USER_UID)!!)
+            .addSnapshotListener { payload, error ->
+                val type = payload!!.getString(Constants.Database.KEY_TYPE)
+                when(type) {
+                    Constants.CallType.OFFER -> {
+
+                        startActivity(Intent(this, IncomingCallFragment::class.java))
+
+                        /*Utils.navigateTo(this,
+                            R.id.fragment_container,
+                            IncomingCallFragment.newInstance("", ""),
+                            ""
+                        )*/
+
+                        /*val intent = Intent(this, RTCActivity::class.java)
+                        intent.putExtra("meetingID", sharedPref.getString(Constants.SIGNED_IN_USER_UID)!!)
+                        intent.putExtra("isJoin",true)
+                        startActivity(intent)*/
+                    }
+                    Constants.CallType.END_CALL -> {
+                        startActivity(Intent(this, MainActivity::class.java))
+                    }
+                }
+            }
+
+
     }
+
 
 
 }

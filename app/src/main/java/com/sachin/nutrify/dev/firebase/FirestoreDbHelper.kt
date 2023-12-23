@@ -1,33 +1,28 @@
 package com.sachin.nutrify.dev.firebase
 
-import android.app.Application
 import android.content.Context
-import android.media.metrics.Event
-import android.os.Message
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.*
-import com.google.firebase.ktx.Firebase
 import com.sachin.nutrify.dev.model.ChatMessage
 import com.sachin.nutrify.dev.model.FUser
 import com.sachin.nutrify.dev.model.User
-import com.sachin.nutrify.dev.room.RoomDB
 import com.sachin.nutrify.dev.utils.Constants
-import com.sachin.nutrify.dev.utils.Logger
 import com.sachin.nutrify.dev.utils.Logger.Companion.d
 import com.sachin.nutrify.dev.utils.SharedPrefHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import org.w3c.dom.DocumentType
 import kotlin.collections.HashMap
 
 class FirestoreDbHelper(context: Context) {
-    private var fireBaseDb: FirebaseFirestore = FirebaseFirestore.getInstance()
+    var fireBaseDb: FirebaseFirestore = FirebaseFirestore.getInstance()
     private var pref: SharedPrefHelper = SharedPrefHelper.getInstance(context)
     private var TAG = FirestoreDbHelper::class.java.simpleName
     private var mMessageListener: GetMessagesListener? = null
    // private var localDb = RoomDB.getDatabase(context)
 
+    private val mChatMessages: MutableLiveData<ArrayList<ChatMessage>> = MutableLiveData()
+    private val mUserList: MutableLiveData<ArrayList<FUser>> = MutableLiveData()
     fun addUser(user: User, signUpCallback: SignUpListener) {
         d(TAG, "addUser()")
         val dataMap = HashMap<String, Any>()
@@ -113,7 +108,7 @@ class FirestoreDbHelper(context: Context) {
     }
 
     interface GetMessagesListener {
-        fun getMessagesSuccess(list: List<ChatMessage>)
+        fun getMessagesSuccess(list: MutableLiveData<ArrayList<ChatMessage>>)
         fun getMessagesFailure()
     }
 
@@ -130,14 +125,14 @@ class FirestoreDbHelper(context: Context) {
                             it.getString(Constants.KEY_MESSAGE)!!,
                             it.getString(Constants.KEY_TIMESTAMP)!!
                         )
-                        mChatMessages.add(chatMessage)
+                        mChatMessages.value?.add(chatMessage)
                     }
                 }
                 mMessageListener?.getMessagesSuccess(mChatMessages)
             }
         }
 
-    private val mChatMessages = mutableListOf<ChatMessage>()
+
     fun getMessagesByRxId(id: String, action: GetMessagesListener) {
         mMessageListener = action
         //SENT msgs
@@ -151,6 +146,7 @@ class FirestoreDbHelper(context: Context) {
             .whereEqualTo(Constants.KEY_SENDER_ID, id)
             .whereEqualTo(Constants.KEY_RECEIVER_ID, pref.getString(Constants.SIGNED_IN_USER_UID))
             .addSnapshotListener(eventListener)
+
 
             /*.get()
             .addOnCompleteListener {task ->
@@ -171,11 +167,11 @@ class FirestoreDbHelper(context: Context) {
                 }
             }*/
     }
-    interface getUsersListener {
-        fun getUsersSuccess(userList: List<FUser>)
+    interface GetUsersListener {
+        fun getUsersSuccess(userList: MutableLiveData<ArrayList<FUser>>)
         fun getUsersFailure()
     }
-    fun getAllUsers(action: getUsersListener) {
+    fun getAllUsers(action: GetUsersListener) {
         d(TAG, "getAllUsers()")
 
         fireBaseDb.collection(Constants.Database.USERS)
@@ -196,13 +192,13 @@ class FirestoreDbHelper(context: Context) {
                             it.getString(Constants.PASSWORD)!!,
                             it.getString(Constants.ENC_IMAGE)!!
                         )
-                        response.add(fUser)
+                        mUserList.value?.add(fUser)
                         /*CoroutineScope(Dispatchers.IO).launch {
                             // localDb.userDetailDao().insertUser(fUser)
                             //pref.putBoolean(Constants.IS_SIGNED_IN, true)
                         }*/
                     }
-                    action.getUsersSuccess(response)
+                    action.getUsersSuccess(mUserList)
                 }
                 return@addOnCompleteListener
             }

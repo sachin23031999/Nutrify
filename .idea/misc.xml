@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
@@ -21,17 +20,23 @@
         <entry key="..\:/Android_projects/Nutrify/app/src/main/res/layout/fragment_chat_user.xml" value="0.20416666666666666" />
         <entry key="..\:/Android_projects/Nutrify/app/src/main/res/layout/fragment_sign_in.xml" value="0.20416666666666666" />
         <entry key="..\:/Android_projects/Nutrify/app/src/main/res/layout/fragment_signup.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/drawable/circle_background.xml" value="0.1115" />
+        <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/drawable/ic__videocall.xml" value="0.1115" />
+        <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/drawable/ic_videocall.xml" value="0.1115" />
+        <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/activity_call.xml" value="0.1" />
         <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/activity_chat.xml" value="0.1796875" />
+        <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/activity_main.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/activity_splash.xml" value="0.1796875" />
         <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/fragment_chat_message.xml" value="0.1796875" />
         <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/fragment_chat_user.xml" value="0.1796875" />
+        <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/fragment_incoming_call.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/layout_received_message.xml" value="0.1796875" />
         <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/layout_sent_message.xml" value="0.1796875" />
         <entry key="..\:/Users/sackumar/Desktop/P_Docs/Android_Projects/Nutrify/app/src/main/res/layout/user_info_adapter.xml" value="0.1796875" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

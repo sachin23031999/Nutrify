@@ -16,11 +16,23 @@ class Constants {
         const val KEY_MESSAGE = "message"
         const val KEY_TIMESTAMP = "tms"
         const val KEY_COLLECTION_CHAT = "chat"
+
+        var isCallEnded: Boolean = false
+        var isInitiatedNow : Boolean = true
     }
     interface Database {
         companion object {
             const val USERS = "users"
             const val CHATS = "chat"
+            const val CALLS = "calls"
+            const val KEY_TYPE = "type"
+        }
+    }
+    interface CallType {
+        companion object {
+            const val OFFER = "OFFER"
+            const val ANSWER = "ANSWER"
+            const val END_CALL = "END_CALL"
         }
     }
 }

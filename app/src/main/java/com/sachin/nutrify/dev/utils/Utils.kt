@@ -3,7 +3,6 @@ package com.sachin.nutrify.dev.utils
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.Base64
-import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -27,11 +26,11 @@ class Utils {
         }
 
         fun navigateTo(activity: FragmentActivity, viewId: Int, fragment: Fragment, tag: String) {
-            val fragmentTransaction: FragmentTransaction =
-                activity.supportFragmentManager.beginTransaction()
-            fragmentTransaction.replace(viewId, fragment, tag)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
+                val fragmentTransaction: FragmentTransaction =
+                    activity.supportFragmentManager.beginTransaction()
+                fragmentTransaction.replace(viewId, fragment, tag)
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
         }
 
         fun generateDummyUsers(count: Int): MutableList<UserInfo> {
@@ -58,6 +57,9 @@ class Utils {
         fun currentTmsInMillis() = System.currentTimeMillis().toString()
 
         fun currentTmsReadable() = SimpleDateFormat()
+        fun getLineNumber(): Int {
+            return Thread.currentThread().stackTrace[2].lineNumber
+        }
     }
 
 }

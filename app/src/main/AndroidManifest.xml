@@ -3,6 +3,9 @@
     package="com.sachin.nutrify.dev" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
 
     <application
         android:allowBackup="true"
@@ -34,7 +37,10 @@
         <activity
             android:name=".ChatActivity"
             android:exported="false" />
-
+        <activity android:name=".webrtc.RTCActivity"
+            android:exported="false"/>
+        <activity android:name=".IncomingCallFragment"
+            android:exported="false"/>
         <service
             android:name=".firebase.MessagingService"
             android:exported="false" >

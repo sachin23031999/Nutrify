@@ -6,17 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.sachin.nutrify.dev.adapter.UserInfoAdapter
 import com.sachin.nutrify.dev.adapter.UserInfoAdapterListener
 import com.sachin.nutrify.dev.firebase.FirestoreDbHelper
 import com.sachin.nutrify.dev.model.FUser
-import com.sachin.nutrify.dev.model.UserInfo
 import com.sachin.nutrify.dev.utils.Logger.Companion.d
 import com.sachin.nutrify.dev.utils.Utils
 import com.sachin.nutrify.dev.utils.Utils.Companion.generateDummyUsers
-import com.sachin.nutrify.dev.utils.Utils.Companion.showToast
 import kotlinx.android.synthetic.main.fragment_chat_user.*
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,17 +52,10 @@ class ChatUserFragment : Fragment(), UserInfoAdapterListener {
         val adapter = UserInfoAdapter()
         adapter.mUserInfoAdapterListener = this
         val dummyUsers = generateDummyUsers(10)
-        viewModel.getAllUsers(object : FirestoreDbHelper.getUsersListener {
-            override fun getUsersSuccess(userList: List<FUser>) {
-                d(TAG, "getUserSuccess(), $userList")
-                adapter.updateUsers(userList as MutableList<FUser>)
-            }
+        viewModel.getAllUsers()?.observe(this) { userList ->
+            adapter.updateUsers(userList as MutableList<FUser>)
+        }
 
-            override fun getUsersFailure() {
-
-            }
-
-        })
        // adapter.updateUsers(viewModel.getAllUsers())
         recyclerView.adapter = adapter
     }

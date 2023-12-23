@@ -3,12 +3,10 @@ package com.sachin.nutrify.dev.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
-import android.widget.TextView
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.sachin.nutrify.dev.R
 import com.sachin.nutrify.dev.model.FUser
-import com.sachin.nutrify.dev.model.User
 import com.sachin.nutrify.dev.model.UserInfo
 import kotlinx.android.synthetic.main.user_info_adapter.view.*
 

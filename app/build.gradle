@@ -24,8 +24,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -36,22 +36,36 @@ android {
 }
 
 dependencies {
+    implementation Deps.webrtc
 
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation Deps.timberLogger
+
+    implementation Deps.firebase.bom
+    implementation Deps.firebase.messaging_ktx
+    implementation Deps.firebase.config
+
+    implementation Deps.androidx.navigation_fragment
+    implementation Deps.androidx.navigation_ui
+    implementation Deps.androidx.navigation_safe_args
+
+    implementation Deps.retrofit.builder
+    implementation Deps.retrofit.converter
+
+    implementation Deps.gson
+
+    implementation Deps.androidx.lifecycle.runtime_ktx
+    implementation Deps.androidx.lifecycle.extensions
+    implementation Deps.androidx.lifecycle.process
+
+    implementation Deps.material
+    implementation Deps.androidx.constraintlayout
+
     implementation 'com.hannesdorfmann.instantiator:instantiator:1.0.0'
-    implementation "androidx.activity:activity-ktx:1.5.1"
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'com.google.firebase:firebase-messaging:23.0.7'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.2.1'
+
+    implementation Deps.androidx.ktx
+    implementation Deps.androidx.appcompat
+
     implementation 'androidx.room:room-common:2.4.2'
     implementation 'androidx.room:room-ktx:2.4.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
