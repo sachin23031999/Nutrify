@@ -1,17 +1,14 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'com.google.gms.google-services'
-    id 'kotlin-android-extensions'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdk 31
+    compileSdk Versions.compileSdk
 
     defaultConfig {
         applicationId "com.sachin.nutrify.dev"
-        minSdk 21
-        targetSdk 31
+        minSdk Versions.minSdk
+        targetSdk Versions.targetSdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -33,9 +30,15 @@ android {
     buildFeatures {
         viewBinding true
     }
+    // Allow version downgrade when installing the app through gradle.
+    installation {
+        installOptions '-d'
+    }
 }
 
 dependencies {
+    implementation Deps.koin.core
+
     implementation Deps.webrtc
 
     implementation Deps.timberLogger
@@ -46,7 +49,6 @@ dependencies {
 
     implementation Deps.androidx.navigation_fragment
     implementation Deps.androidx.navigation_ui
-    implementation Deps.androidx.navigation_safe_args
 
     implementation Deps.retrofit.builder
     implementation Deps.retrofit.converter
@@ -54,7 +56,7 @@ dependencies {
     implementation Deps.gson
 
     implementation Deps.androidx.lifecycle.runtime_ktx
-    implementation Deps.androidx.lifecycle.extensions
+    //implementation Deps.androidx.lifecycle.extensions
     implementation Deps.androidx.lifecycle.process
 
     implementation Deps.material
@@ -64,8 +66,10 @@ dependencies {
 
     implementation Deps.androidx.ktx
     implementation Deps.androidx.appcompat
+    implementation Deps.androidx.credentials
+    implementation Deps.androidx.credentials_play_services
 
     implementation 'androidx.room:room-common:2.4.2'
     implementation 'androidx.room:room-ktx:2.4.2'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.10.0'
 }

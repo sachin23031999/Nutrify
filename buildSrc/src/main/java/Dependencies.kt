@@ -6,7 +6,6 @@ object Versions {
 
     const val buildgradle = "7.4.2"
     const val kotlingradleplugin = "1.8.20"
-
     const val webrtc = "1.0.32006"
     const val timber = "4.7.1"
     const val googleservices = "4.3.13"
@@ -22,6 +21,7 @@ object Versions {
     const val navigation = "2.5.1"
     const val workmanager = "2.8.1"
     const val datasource = "1.1.0-alpha04"
+    const val credentials = "1.3.0-alpha01"
 
     const val reflect = "1.6.0"
     const val stdlib = "1.6.0"
@@ -31,16 +31,13 @@ object Versions {
 
     const val koin = "3.4.0"
 
-    const val material = "1.9.0"
+    const val material = "1.6.0"
 
     const val androidxcore = "1.4.0"
     const val androidxjunit = "1.1.3"
     const val junit = "4.13.2"
     const val mockk = "1.12.4"
 
-    const val moto_checkin = "30.002.00"
-    const val moto_settings = "31.035.00"
-    const val moto_core_services = "33.025.00"
     const val glide = "4.14.1"
     const val gson: String = "2.9.0"
     const val room: String = "2.5.2"
@@ -113,6 +110,8 @@ object Deps {
     val androidx = object {
         val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
         val ktx = "androidx.core:core-ktx:${Versions.ktx}"
+        val credentials = "androidx.credentials:credentials:${Versions.credentials}"
+        val credentials_play_services = "androidx.credentials:credentials-play-services-auth:${Versions.credentials}"
         val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.constraint}"
         val annotation = "androidx.annotation:annotation:${Versions.annotation}"
         val room_compiler: String = "androidx.room:room-compiler:${Versions.room}"
@@ -172,12 +171,6 @@ object Deps {
         }
         val junit = "junit:junit:${Versions.junit}"
         val mockk = "io.mockk:mockk:${Versions.mockk}"
-    }
-
-    val moto = object {
-        val checkin = "moto-checkin:moto-checkin:${Versions.moto_checkin}"
-        val settings = "moto-settings:moto-settings:${Versions.moto_settings}"
-        val core_services = "moto-core_services:moto-core_services:${Versions.moto_core_services}"
     }
 
     val glide = object {

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChatMessageFragment">
+    tools:context="com.sachin.nutrify.ui.chat.ChatMessageFragment">
 
     <LinearLayout
         android:id="@+id/layoutUserInfo"
