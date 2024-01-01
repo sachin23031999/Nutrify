@@ -20,7 +20,7 @@ class FirestoreRepositoryImpl : FirestoreRepository {
         dataMap[KEY_FIRST_NAME] = user.firstName
         dataMap[KEY_LAST_NAME] = user.lastName
         dataMap[KEY_EMAIL] = user.email
-        dataMap[KEY_ENC_IMAGE] = user.encodedImage.toString()
+        dataMap[KEY_ENC_IMAGE] = user.imageUrl.toString()
         return@runBlocking putData(COLLECTION_USERS, dataMap)
     }
 

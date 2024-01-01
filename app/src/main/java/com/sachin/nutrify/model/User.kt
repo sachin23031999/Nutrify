@@ -8,7 +8,8 @@ data class User(
     var firstName: String,
     var lastName: String,
     var email: String,
-    var encodedImage: String? = null
+    var imageUrl: String? = null,
+    val federatedToken: String? = null
 )
 
 @Entity

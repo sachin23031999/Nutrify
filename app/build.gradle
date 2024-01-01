@@ -37,6 +37,7 @@ android {
 }
 
 dependencies {
+    implementation Deps.android.google_federated
     implementation Deps.koin.core
 
     implementation Deps.webrtc

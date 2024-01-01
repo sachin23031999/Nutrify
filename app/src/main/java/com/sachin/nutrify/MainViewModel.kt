@@ -8,6 +8,6 @@ class MainViewModel(
 ) : ViewModel() {
 
     fun isSignedIn(): Boolean {
-        return true
+        return false
     }
 }

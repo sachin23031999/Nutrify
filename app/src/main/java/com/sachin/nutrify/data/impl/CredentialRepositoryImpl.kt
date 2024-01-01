@@ -1,8 +1,16 @@
 package com.sachin.nutrify.data.impl
 
 import android.app.Activity
-import androidx.credentials.*
-import androidx.credentials.exceptions.*
+import androidx.credentials.CreatePasswordRequest
+import androidx.credentials.CredentialManager
+import androidx.credentials.GetCredentialRequest
+import androidx.credentials.GetPasswordOption
+import androidx.credentials.PasswordCredential
+import androidx.credentials.exceptions.CreateCredentialCancellationException
+import androidx.credentials.exceptions.CreateCredentialException
+import androidx.credentials.exceptions.GetCredentialCancellationException
+import androidx.credentials.exceptions.GetCredentialException
+import androidx.credentials.exceptions.NoCredentialException
 import com.sachin.nutrify.data.CredentialRepository
 import com.sachin.nutrify.data.model.CredentialResult
 import com.sachin.nutrify.data.model.Error
@@ -17,7 +25,7 @@ class CredentialRepositoryImpl : CredentialRepository {
     private lateinit var credentialManager: CredentialManager
     private val bgScope = CoroutineScope(Dispatchers.IO)
 
-    fun init(activity: Activity) {
+    override fun init(activity: Activity) {
         credentialManager = CredentialManager.create(activity)
     }
 

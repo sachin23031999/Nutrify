@@ -9,6 +9,7 @@ object Versions {
     const val webrtc = "1.0.32006"
     const val timber = "4.7.1"
     const val googleservices = "4.3.13"
+    const val google_federated = "20.7.0"
 
     const val dokka = "1.5.31"
     const val versioncheck = "0.29.0"
@@ -105,6 +106,7 @@ object Deps {
 
     val android = object {
         val flexbox = "com.google.android:flexbox:${Versions.flexbox}"
+        val google_federated = "com.google.android.gms:play-services-auth:${Versions.google_federated}"
     }
 
     val androidx = object {

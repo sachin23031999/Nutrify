@@ -1,35 +1,38 @@
 package com.sachin.nutrify
 
 import android.app.Application
-import android.content.Context
+import android.util.Log
 import androidx.annotation.Nullable
 import com.sachin.nutrify.injection.appModule
-import com.sachin.nutrify.utils.Logger
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.core.component.KoinComponent
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
-class NutrifyApplication : Application() {
-    override fun attachBaseContext(base: Context?) {
+class NutrifyApplication : Application(), KoinComponent  {
+
+    override fun onCreate() {
+        super.onCreate()
+        Log.d(TAG, "OnCreate app")
+        setupTimber()
         loadKoin(getProcessName())
     }
 
     private fun loadKoin(processName: String) {
-        setupTimber()
-        Timber.d("Loading koin for process: $processName")
+        Log.d(TAG, "Loading koin for process: $processName")
         startKoin {
             androidLogger()
             androidContext(this@NutrifyApplication)
-            loadKoinModules(getNutrifyModules())
+            loadKoinModules(getModules())
         }
     }
 
-    private fun getNutrifyModules() = listOf(appModule)
+    private fun getModules() = listOf(appModule)
 
     private fun setupTimber() {
-        Logger.d(TAG, "App started")
+        Log.d(TAG, "App started")
         Timber.plant(object : Timber.DebugTree() {
             @Nullable
             override fun createStackElementTag(element: StackTraceElement): String? {

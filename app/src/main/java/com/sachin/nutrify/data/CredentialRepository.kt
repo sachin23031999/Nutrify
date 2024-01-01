@@ -5,6 +5,11 @@ import com.sachin.nutrify.data.model.CredentialResult
 
 interface CredentialRepository {
     /**
+     * Init.
+     */
+    fun init(activity: Activity)
+
+    /**
      * Sign in user.
      */
     suspend fun signIn(
