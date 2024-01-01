@@ -1,4 +1,4 @@
-package com.sachin.nutrify.ui.adapter
+package com.sachin.nutrify.ui.chat.adapter
 
 import android.view.LayoutInflater
 import android.view.View

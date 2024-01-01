@@ -71,16 +71,15 @@ class FirestoreRepositoryImpl : FirestoreRepository {
             false
         }
 
-    override suspend fun getAllUsers(): List<FUser> =
+    override suspend fun getAllUsers(): List<User> =
         try {
             val querySnapshot = fireBaseDb.collection(COLLECTION_USERS).get().await()
             val users = querySnapshot.documents.map { document ->
-                FUser(
+                User(
                     document.id,
                     document.getString(Constants.FIRST_NAME)!!,
                     document.getString(Constants.LAST_NAME)!!,
                     document.getString(Constants.EMAIL)!!,
-                    document.getString(Constants.PASSWORD)!!,
                     document.getString(Constants.ENC_IMAGE)!!,
                 )
             }

@@ -1,4 +1,4 @@
-package com.sachin.nutrify.ui.adapter
+package com.sachin.nutrify.ui.chat.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -8,15 +8,15 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sachin.nutrify.R
-import com.sachin.nutrify.model.FUser
+import com.sachin.nutrify.model.User
 
 interface UserInfoAdapterListener {
-    fun onLayoutClicked(userInfo: FUser)
+    fun onLayoutClicked(userInfo: User)
 }
 
-class UserInfoAdapter : RecyclerView.Adapter<UserInfoAdapter.UserInfoViewHolder>() {
+class ContactsAdapter : RecyclerView.Adapter<ContactsAdapter.UserInfoViewHolder>() {
 
-    private var mUserList = mutableListOf<FUser>()
+    private var mUserList = mutableListOf<User>()
     var mUserInfoAdapterListener: UserInfoAdapterListener? = null
 
     inner class UserInfoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -44,10 +44,8 @@ class UserInfoAdapter : RecyclerView.Adapter<UserInfoAdapter.UserInfoViewHolder>
 
     override fun getItemCount() = mUserList.size
 
-    fun updateUsers(users: MutableList<FUser>) {
-        this.mUserList = users
+    fun updateUsers(users: List<User>) {
+        this.mUserList = users as MutableList<User>
         notifyDataSetChanged()
     }
-
-    fun getUsers() = mUserList
 }

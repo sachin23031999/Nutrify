@@ -1,41 +1,42 @@
 package com.sachin.nutrify.ui.chat
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.sachin.nutrify.data.impl.FirestoreRepositoryImpl
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.sachin.nutrify.data.FirestoreRepository
+import com.sachin.nutrify.data.room.AuthRepository
+import com.sachin.nutrify.extension.toLiveData
 import com.sachin.nutrify.model.FUser
-import com.sachin.nutrify.utils.Logger
+import kotlinx.coroutines.launch
+import timber.log.Timber.d
 
-class ChatViewModel(application: Application) : AndroidViewModel(application) {
+class ChatViewModel(
+    private val firestoreRepository: FirestoreRepository,
+    private val authRepository: AuthRepository
+) : ViewModel() {
 
-    private val fireDb = FirestoreRepositoryImpl()
-    private val TAG = ChatViewModel::class.java.simpleName
+    private val _uiState = MutableLiveData<ChatState>()
 
+    val uiState = _uiState.toLiveData()
     fun sendMessage(msg: ChatMessage) {
-        Logger.d(TAG, "sendMessage()")
-        fireDb.addMessage(msg)
+        d("sendMessage()")
+        firestoreRepository.addMessage(msg)
     }
 
-    fun getMessages(rxId: String): MutableLiveData<ArrayList<ChatMessage>>? {
-        var result: MutableLiveData<ArrayList<ChatMessage>>? = null
-        /*fireDb.getMessages(
-            rxId,
-            object : FirestoreRepositoryImpl.GetMessagesListener {
-                override fun getMessagesSuccess(list: MutableLiveData<ArrayList<ChatMessage>>) {
-                    result = list
-                }
-
-                override fun getMessagesFailure() {
-                    result = null
-                }
-            },
-        )*/
-        return result
+    fun getMessages(remoteId: String) {
+        viewModelScope.launch {
+            val messages = mutableListOf<ChatMessage>()
+            getCurrentUserId()?.let { currentUserId ->
+                messages.addAll(firestoreRepository.getSentMessages(remoteId, currentUserId))
+                messages.addAll(firestoreRepository.getReceivedMessages(currentUserId, remoteId))
+                _uiState.postValue(ChatState.GetMessageSuccess(messages))
+            } ?: _uiState.postValue(ChatState.GetMessageFailed("current user id null"))
+        }
     }
 
+    private fun getCurrentUserId(): String? = authRepository.getAccountDetails()?.id
     fun getAllUsers(): MutableLiveData<ArrayList<FUser>>? {
-        var result: MutableLiveData<ArrayList<FUser>>? = null
+        val result: MutableLiveData<ArrayList<FUser>>? = null
         /*fireDb.getAllUsers(object : FirestoreRepositoryImpl.GetUsersListener {
             override fun getUsersSuccess(userList: MutableLiveData<ArrayList<FUser>>) {
                 result = userList

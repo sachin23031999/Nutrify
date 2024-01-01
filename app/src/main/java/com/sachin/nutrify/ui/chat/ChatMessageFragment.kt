@@ -1,5 +1,6 @@
 package com.sachin.nutrify.ui.chat
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +15,7 @@ import com.sachin.nutrify.data.impl.FirestoreRepositoryImpl.Companion.COLLECTION
 import com.sachin.nutrify.data.impl.FirestoreRepositoryImpl.Companion.KEY_TYPE
 import com.sachin.nutrify.databinding.FragmentChatMessageBinding
 import com.sachin.nutrify.model.FUser
-import com.sachin.nutrify.ui.adapter.MessageAdapter
+import com.sachin.nutrify.ui.chat.adapter.MessageAdapter
 import com.sachin.nutrify.utils.CallType
 import com.sachin.nutrify.utils.Constants
 import com.sachin.nutrify.utils.Logger
@@ -34,7 +35,7 @@ class ChatMessageFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-          //  mUser = it.getParcelable(USER_INFO)
+            //  mUser = it.getParcelable(USER_INFO)
         }
     }
 
@@ -42,11 +43,9 @@ class ChatMessageFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat_message, container, false)
-    }
+    ) = binding.root
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.tvUserName.text = mUser?.firstName + " " + mUser?.lastName
@@ -68,7 +67,7 @@ class ChatMessageFragment : Fragment() {
             chatViewModel.sendMessage(msg)
         }
 
-        chatViewModel.getMessages(mUser?.id!!)?.observe(viewLifecycleOwner) { list ->
+        /*chatViewModel.getMessages(mUser?.id!!)?.observe(viewLifecycleOwner) { list ->
             Logger.d(TAG, "getMessages()")
             list.forEach {
                 Logger.d(TAG, "msg -> $it")
@@ -76,7 +75,7 @@ class ChatMessageFragment : Fragment() {
             adapter.addMessage(list)
             if (list.isNotEmpty()) recyclerView.smoothScrollToPosition(list.size - 1)
         }
-
+*/
         binding.ivVideoCall.setOnClickListener {
             Logger.d(TAG, "Video call icon clicked")
             Constants.isInitiatedNow = true
@@ -86,12 +85,12 @@ class ChatMessageFragment : Fragment() {
     }
 
     private fun initVideoCall(remoteId: String) {
-        Timber.d( "initVideoCall()")
+        Timber.d("initVideoCall()")
         fireDb.collection(COLLECTION_CALLS)
             .document(remoteId)
             .get()
             .addOnSuccessListener {
-                Timber.d( "initVideoCall success, $it")
+                Timber.d("initVideoCall success, $it")
                 if (it[KEY_TYPE] == CallType.OFFER ||
                     it[KEY_TYPE] == CallType.ANSWER
                     /*|| it["type"]=="END_CALL"*/
@@ -117,7 +116,7 @@ class ChatMessageFragment : Fragment() {
         fun newInstance(userInfo: FUser) =
             ChatMessageFragment().apply {
                 arguments = Bundle().apply {
-                 //   putParcelable(USER_INFO, userInfo)
+                    //   putParcelable(USER_INFO, userInfo)
                 }
             }
     }

@@ -28,5 +28,5 @@ interface FirestoreRepository {
     /**
      * Get all users.
      */
-    suspend fun getAllUsers(): List<FUser>
+    suspend fun getAllUsers(): List<User>
 }
