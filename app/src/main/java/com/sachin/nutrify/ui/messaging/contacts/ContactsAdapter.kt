@@ -1,4 +1,4 @@
-package com.sachin.nutrify.ui.chat.adapter
+package com.sachin.nutrify.ui.messaging.contacts
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

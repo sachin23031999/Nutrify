@@ -1,4 +1,4 @@
-package com.sachin.nutrify.ui.chat.adapter
+package com.sachin.nutrify.ui.messaging.chat
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,14 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sachin.nutrify.R
-import com.sachin.nutrify.ui.chat.ChatMessage
 import com.sachin.nutrify.utils.Logger.Companion.d
 
-class MessageAdapter(val currentUserId: String) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChatAdapter(val currentUserId: String) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var mChatMessage = mutableListOf<ChatMessage>()
     private var mCount = 0
-    private val TAG = MessageAdapter::class.java.simpleName
+    private val TAG = ChatAdapter::class.java.simpleName
 
     private val TYPE_SENT = 0
     private val TYPE_RECEIVED = 2
@@ -24,7 +23,6 @@ class MessageAdapter(val currentUserId: String) : RecyclerView.Adapter<RecyclerV
             itemView.findViewById<TextView>(R.id.tvReceivedMessage).text = msg.message
             itemView.findViewById<TextView>(R.id.tvTms).text = msg.tms
         }
-
     }
 
     inner class SentMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -33,12 +31,11 @@ class MessageAdapter(val currentUserId: String) : RecyclerView.Adapter<RecyclerV
             itemView.findViewById<TextView>(R.id.tvReceivedMessage).text = msg.message
             itemView.findViewById<TextView>(R.id.tvTms).text = msg.tms
         }
-
     }
     private var mParent: ViewGroup? = null
 
     override fun getItemViewType(position: Int): Int {
-        if(position < mChatMessage.size) {
+        if (position < mChatMessage.size) {
             val msg = mChatMessage[position]
             return if (msg.senderId != currentUserId) TYPE_SENT else TYPE_RECEIVED
         }
@@ -48,16 +45,15 @@ class MessageAdapter(val currentUserId: String) : RecyclerView.Adapter<RecyclerV
         d(TAG, "onCreateViewHolder()")
         mParent = parent
 
-        return if(viewType == TYPE_RECEIVED)
+        return if (viewType == TYPE_RECEIVED) {
             ReceivedMessageViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.layout_received_message, parent, false))
-        else
+        } else {
             SentMessageViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.layout_sent_message, parent, false))
-
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
-        if(position < mChatMessage.size) {
+        if (position < mChatMessage.size) {
             val msg = mChatMessage[position]
 
             d(TAG, "onBindViewHolder(), " + msg.message)
@@ -67,7 +63,6 @@ class MessageAdapter(val currentUserId: String) : RecyclerView.Adapter<RecyclerV
                 (holder as ReceivedMessageViewHolder).setData(msg)
             }
         }
-
     }
 
     override fun getItemCount(): Int {
@@ -75,7 +70,7 @@ class MessageAdapter(val currentUserId: String) : RecyclerView.Adapter<RecyclerV
         return mChatMessage.size
     }
 
-    fun addMessage(chatMessage: List<ChatMessage>) {
+    fun updateMessages(chatMessage: List<ChatMessage>) {
         chatMessage.sortedBy { it.tms }
         this.mChatMessage = chatMessage as MutableList<ChatMessage>
 

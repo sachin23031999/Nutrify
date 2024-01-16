@@ -1,4 +1,4 @@
-package com.sachin.nutrify.ui.chat.contacts
+package com.sachin.nutrify.ui.messaging.contacts
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,15 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sachin.nutrify.R
 import com.sachin.nutrify.databinding.FragmentContactsBinding
+import com.sachin.nutrify.extension.handleOnBackPressed
 import com.sachin.nutrify.extension.navigate
+import com.sachin.nutrify.extension.setResultAndFinishActivity
 import com.sachin.nutrify.extension.showToast
 import com.sachin.nutrify.model.User
-import com.sachin.nutrify.ui.chat.adapter.ContactsAdapter
-import com.sachin.nutrify.ui.chat.adapter.UserInfoAdapterListener
+import com.sachin.nutrify.ui.auth.AuthActivity
+import com.sachin.nutrify.ui.messaging.MessagingActivity.Companion.KEY_USER_INFO
 import com.sachin.nutrify.utils.Logger
 import org.koin.android.ext.android.inject
 
@@ -36,6 +37,7 @@ class ContactsFragment : Fragment(), UserInfoAdapterListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Logger.d(TAG, "onViewCreated()")
+        setupBackPress()
         setupObservers()
         viewModel.fetchContacts()
     }
@@ -69,7 +71,9 @@ class ContactsFragment : Fragment(), UserInfoAdapterListener {
         )
     }
 
-    companion object {
-        private const val KEY_USER_INFO = "user_info"
+    private fun setupBackPress() {
+        handleOnBackPressed {
+            setResultAndFinishActivity(AuthActivity.RESULT_ALREADY_LOGGED_IN)
+        }
     }
 }

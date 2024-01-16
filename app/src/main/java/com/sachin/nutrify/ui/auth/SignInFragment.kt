@@ -13,9 +13,10 @@ import com.sachin.nutrify.databinding.FragmentSignInBinding
 import com.sachin.nutrify.extension.finishActivity
 import com.sachin.nutrify.extension.handleOnBackPressed
 import com.sachin.nutrify.extension.navigate
+import com.sachin.nutrify.extension.onBackPressed
 import com.sachin.nutrify.extension.showToast
 import com.sachin.nutrify.model.User
-import com.sachin.nutrify.ui.chat.ChatActivity
+import com.sachin.nutrify.ui.messaging.MessagingActivity
 import org.koin.android.ext.android.inject
 import timber.log.Timber.d
 
@@ -31,6 +32,14 @@ class SignInFragment : Fragment() {
             result.data?.let { handleGoogleSignIn(it) }
         } else {
             showToast("Login failed, try again")
+        }
+    }
+
+    private val contractMessaging = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == AuthActivity.RESULT_ALREADY_LOGGED_IN) {
+            onBackPressed()
         }
     }
 
@@ -51,7 +60,7 @@ class SignInFragment : Fragment() {
     private fun checkLogin() {
         if (viewModel.isUserLoggedIn()) {
             d("User already logged in")
-            startActivity(Intent(requireContext(), ChatActivity::class.java))
+            startActivity(Intent(requireContext(), MessagingActivity::class.java))
         }
     }
 
@@ -67,12 +76,15 @@ class SignInFragment : Fragment() {
                 is AuthState.InitSuccess -> {
                     setupButtons()
                 }
+
                 is AuthState.InitFailure -> {
                 }
+
                 else -> {}
             }
         }
     }
+
     private fun handleGoogleSignIn(data: Intent) {
         viewModel.getLoginDetails(data)?.let {
             d("user details: ${it.email}")
@@ -82,8 +94,9 @@ class SignInFragment : Fragment() {
 
     private fun handleSignIn(user: User) {
         viewModel.updateAccount(user)
-        val intent = Intent(requireActivity(), ChatActivity::class.java)
-        startActivity(intent)
+        contractMessaging.launch(
+            Intent(requireActivity(), MessagingActivity::class.java)
+        )
     }
 
     private fun setupButtons() {
@@ -105,6 +118,7 @@ class SignInFragment : Fragment() {
     private fun initiateGoogleSignIn() {
         googleSignInContract.launch(viewModel.signInIntent())
     }
+
     private fun isValidDetails(id: String, password: String): Boolean {
         return true
     }

@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.sachin.nutrify.ui.chat.ChatActivity"
+            android:name="com.sachin.nutrify.ui.messaging.MessagingActivity"
             android:exported="false" />
         <activity
             android:name="com.sachin.nutrify.webrtc.RTCActivity"

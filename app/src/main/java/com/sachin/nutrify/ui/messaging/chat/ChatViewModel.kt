@@ -1,4 +1,4 @@
-package com.sachin.nutrify.ui.chat
+package com.sachin.nutrify.ui.messaging.chat
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

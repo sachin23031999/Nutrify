@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import com.hannesdorfmann.instantiator.instance
-import com.sachin.nutrify.ui.chat.ChatMessage
+import com.sachin.nutrify.ui.messaging.chat.ChatMessage
 import com.sachin.nutrify.model.UserInfo
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat

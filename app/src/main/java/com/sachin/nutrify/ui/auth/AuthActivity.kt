@@ -21,4 +21,8 @@ class AuthActivity : AppCompatActivity() {
         navGraph.setStartDestination(R.id.signInFragment)
         navController.setGraph(navGraph, args)
     }
+
+    companion object {
+        const val RESULT_ALREADY_LOGGED_IN = -1
+    }
 }

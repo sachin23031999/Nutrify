@@ -40,6 +40,11 @@ const val ANIMATION_DELAY = 150L
  */
 fun Fragment.onBackPressed() = activity?.onBackPressedDispatcher?.onBackPressed()
 
+fun Fragment.setResultAndFinishActivity(result: Int) {
+    activity?.setResult(result)
+    finishActivity()
+}
+
 /**
  * Function extension to finish Activity from fragments.
  */

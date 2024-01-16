@@ -9,7 +9,8 @@ import com.sachin.nutrify.data.prefs.AuthDataSource
 import com.sachin.nutrify.data.room.AuthRepository
 import com.sachin.nutrify.provider.GoogleAuthProvider
 import com.sachin.nutrify.ui.auth.AuthViewModel
-import com.sachin.nutrify.ui.chat.contacts.ContactsViewModel
+import com.sachin.nutrify.ui.messaging.chat.ChatViewModel
+import com.sachin.nutrify.ui.messaging.contacts.ContactsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -23,4 +24,5 @@ val appModule = module {
 
     viewModel { AuthViewModel(get(), get(), get()) }
     viewModel { ContactsViewModel(get(), get()) }
+    viewModel { ChatViewModel(get(), get()) }
 }

@@ -1,8 +1,7 @@
 package com.sachin.nutrify.data
 
-import com.sachin.nutrify.model.FUser
 import com.sachin.nutrify.model.User
-import com.sachin.nutrify.ui.chat.ChatMessage
+import com.sachin.nutrify.ui.messaging.chat.ChatMessage
 
 interface FirestoreRepository {
     /**

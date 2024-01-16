@@ -1,6 +1,4 @@
-package com.sachin.nutrify.ui.chat
-
-import com.sachin.nutrify.model.UserInfo
+package com.sachin.nutrify.ui.messaging.chat
 
 sealed class ChatState {
     data class GetMessageSuccess(val list: List<ChatMessage>) : ChatState()

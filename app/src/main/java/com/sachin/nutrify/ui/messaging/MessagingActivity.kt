@@ -1,14 +1,11 @@
-package com.sachin.nutrify.ui.chat
+package com.sachin.nutrify.ui.messaging
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.sachin.nutrify.R
-import com.sachin.nutrify.ui.chat.contacts.ContactsFragment
-import com.sachin.nutrify.utils.Logger
-import com.sachin.nutrify.utils.Utils
 
-class ChatActivity : AppCompatActivity() {
+class MessagingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -19,8 +16,12 @@ class ChatActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         val navController = navHostFragment.navController
-        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph_chat)
+        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph_messaging)
         navGraph.setStartDestination(R.id.contactsFragment)
         navController.setGraph(navGraph, args)
+    }
+
+    companion object {
+        const val KEY_USER_INFO = "user_info"
     }
 }

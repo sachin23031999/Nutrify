@@ -13,7 +13,7 @@ import androidx.core.view.isGone
 import com.developerspace.webrtcsample.*
 import com.sachin.nutrify.R
 import com.sachin.nutrify.databinding.ActivityCallBinding
-import com.sachin.nutrify.ui.chat.ChatActivity
+import com.sachin.nutrify.ui.messaging.MessagingActivity
 import com.sachin.nutrify.utils.Constants
 import com.sachin.nutrify.utils.Logger.Companion.d
 import com.sachin.nutrify.utils.Logger.Companion.e
@@ -106,7 +106,7 @@ class RTCActivity : AppCompatActivity() {
             binding.remoteView.isGone = false
             Constants.isCallEnded = true
             finish()
-            startActivity(Intent(this@RTCActivity, ChatActivity::class.java))
+            startActivity(Intent(this@RTCActivity, MessagingActivity::class.java))
         }
     }
 

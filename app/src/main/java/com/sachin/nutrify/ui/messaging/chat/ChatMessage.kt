@@ -1,4 +1,4 @@
-package com.sachin.nutrify.ui.chat
+package com.sachin.nutrify.ui.messaging.chat
 
 data class ChatMessage(
     val senderId: String,
