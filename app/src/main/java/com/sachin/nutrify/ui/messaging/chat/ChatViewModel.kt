@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sachin.nutrify.data.FirestoreRepository
-import com.sachin.nutrify.data.room.AuthRepository
+import com.sachin.nutrify.data.AuthRepository
 import com.sachin.nutrify.extension.toLiveData
 import com.sachin.nutrify.model.FUser
 import kotlinx.coroutines.launch

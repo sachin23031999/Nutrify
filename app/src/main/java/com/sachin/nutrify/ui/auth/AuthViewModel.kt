@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sachin.nutrify.data.CredentialRepository
-import com.sachin.nutrify.data.room.AuthRepository
+import com.sachin.nutrify.data.AuthRepository
 import com.sachin.nutrify.model.User
 import com.sachin.nutrify.provider.GoogleAuthProvider
 import kotlinx.coroutines.launch

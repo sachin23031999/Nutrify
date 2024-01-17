@@ -1,4 +1,4 @@
-package com.sachin.nutrify.data.room
+package com.sachin.nutrify.data
 
 import com.sachin.nutrify.model.User
 

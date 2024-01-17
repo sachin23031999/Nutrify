@@ -6,7 +6,7 @@ import com.sachin.nutrify.data.impl.AuthRepositoryImpl
 import com.sachin.nutrify.data.impl.CredentialRepositoryImpl
 import com.sachin.nutrify.data.impl.FirestoreRepositoryImpl
 import com.sachin.nutrify.data.prefs.AuthDataSource
-import com.sachin.nutrify.data.room.AuthRepository
+import com.sachin.nutrify.data.AuthRepository
 import com.sachin.nutrify.provider.GoogleAuthProvider
 import com.sachin.nutrify.ui.auth.AuthViewModel
 import com.sachin.nutrify.ui.messaging.chat.ChatViewModel

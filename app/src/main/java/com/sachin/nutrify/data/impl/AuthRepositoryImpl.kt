@@ -1,7 +1,7 @@
 package com.sachin.nutrify.data.impl
 
+import com.sachin.nutrify.data.AuthRepository
 import com.sachin.nutrify.data.prefs.AuthDataSource
-import com.sachin.nutrify.data.room.AuthRepository
 import com.sachin.nutrify.model.User
 
 class AuthRepositoryImpl(
