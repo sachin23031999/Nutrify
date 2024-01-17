@@ -58,7 +58,7 @@ class SignInFragment : Fragment() {
     }
 
     private fun checkLogin() {
-        if (viewModel.isUserLoggedIn()) {
+        if (viewModel.isUserLoggedIn(requireContext())) {
             d("User already logged in")
             startActivity(Intent(requireContext(), MessagingActivity::class.java))
         }

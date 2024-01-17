@@ -3,8 +3,6 @@ package com.sachin.nutrify.provider
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -42,9 +40,10 @@ class GoogleAuthProvider {
         null
     }
 
-    fun signOut() {
-        googleSignInClient?.signOut()?.addOnCompleteListener {
+    fun isLoggedIn(context: Context): Boolean =
+        GoogleSignIn.getLastSignedInAccount(context)?.isExpired == false
 
-        }
+    fun signOut() {
+        googleSignInClient?.signOut()
     }
 }

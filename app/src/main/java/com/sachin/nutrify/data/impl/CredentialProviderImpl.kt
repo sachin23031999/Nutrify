@@ -11,9 +11,8 @@ import androidx.credentials.exceptions.CreateCredentialException
 import androidx.credentials.exceptions.GetCredentialCancellationException
 import androidx.credentials.exceptions.GetCredentialException
 import androidx.credentials.exceptions.NoCredentialException
-import com.sachin.nutrify.data.CredentialRepository
 import com.sachin.nutrify.data.model.CredentialResult
-import com.sachin.nutrify.data.model.Error
+import com.sachin.nutrify.provider.CredentialProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +20,7 @@ import timber.log.Timber
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class CredentialRepositoryImpl : CredentialRepository {
+class CredentialProviderImpl : CredentialProvider {
     private lateinit var credentialManager: CredentialManager
     private val bgScope = CoroutineScope(Dispatchers.IO)
 
@@ -53,7 +52,7 @@ class CredentialRepositoryImpl : CredentialRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun logout(username: String): CredentialResult {
+    override suspend fun logout(): CredentialResult {
         TODO("Not yet implemented")
     }
 
@@ -75,16 +74,16 @@ class CredentialRepositoryImpl : CredentialRepository {
             )
             val credential = credentialResponse.credential as? PasswordCredential
 
-            return CredentialResult(credentials = credential)
+            return CredentialResult.Success(credential)
         } catch (e: GetCredentialCancellationException) {
             Timber.e("User cancelled the request, $e")
-            return CredentialResult(error = Error("User cancelled the request"))
+            return CredentialResult.Error("User cancelled the request")
         } catch (e: NoCredentialException) {
             Timber.e("Credentials not found, $e")
-            return CredentialResult(error = Error("Credentials not found"))
+            return CredentialResult.Error("Credentials not found")
         } catch (e: GetCredentialException) {
             Timber.e("Error fetching the credentials, $e")
-            return CredentialResult(error = Error("Error fetching the credentials"))
+            return CredentialResult.Error("Error fetching the credentials")
         }
     }
 
@@ -105,13 +104,13 @@ class CredentialRepositoryImpl : CredentialRepository {
         )
 
         Timber.e("Credentials successfully added: ${response.data}")
-        CredentialResult(credentials = PasswordCredential(username, password))
+        CredentialResult.Success(PasswordCredential(username, password))
     } catch (e: CreateCredentialCancellationException) {
         Timber.e("User cancelled the save flow")
-        CredentialResult(error = Error("User cancelled the save flow"))
+        CredentialResult.Error("User cancelled the save flow")
     } catch (e: CreateCredentialException) {
         Timber.e("Credentials cannot be saved, $e")
-        CredentialResult(error = Error("Credentials cannot be saved"))
+        CredentialResult.Error("Credentials cannot be saved")
     }
 
     private suspend fun isCredentialsSaved(

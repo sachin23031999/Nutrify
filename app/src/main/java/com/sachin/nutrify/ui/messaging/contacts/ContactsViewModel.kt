@@ -3,8 +3,9 @@ package com.sachin.nutrify.ui.messaging.contacts
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sachin.nutrify.data.FirestoreRepository
 import com.sachin.nutrify.data.AuthRepository
+import com.sachin.nutrify.provider.CredentialProvider
+import com.sachin.nutrify.data.FirestoreRepository
 import com.sachin.nutrify.extension.toLiveData
 import kotlinx.coroutines.launch
 
@@ -24,6 +25,12 @@ class ContactsViewModel(
                     _uiState.postValue(ContactsState.GetContactsSuccess(list))
                 }
                 ?: _uiState.postValue(ContactsState.GetContactsFailed("no contacts found"))
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            authRepository.logout()
         }
     }
 }

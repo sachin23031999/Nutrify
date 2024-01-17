@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     tools:context="com.sachin.nutrify.ui.messaging.contacts.ContactsFragment">
 
-    <RelativeLayout
-        android:id="@+id/chat_title_bar"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/contacts_toolbar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#00409A" />
 
     <RelativeLayout
-        android:layout_below="@id/chat_title_bar"
+        android:layout_below="@id/contacts_toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp">

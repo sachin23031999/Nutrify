@@ -1,9 +1,9 @@
-package com.sachin.nutrify.data
+package com.sachin.nutrify.provider
 
 import android.app.Activity
 import com.sachin.nutrify.data.model.CredentialResult
 
-interface CredentialRepository {
+interface CredentialProvider {
     /**
      * Init.
      */
@@ -26,5 +26,5 @@ interface CredentialRepository {
     /**
      * Logout user.
      */
-    suspend fun logout(username: String): CredentialResult
+    suspend fun logout(): CredentialResult
 }

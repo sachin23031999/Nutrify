@@ -24,5 +24,7 @@ class AuthActivity : AppCompatActivity() {
 
     companion object {
         const val RESULT_ALREADY_LOGGED_IN = -1
+
+        const val ACTION_IS_LOGGED_OUT = "logged_out"
     }
 }

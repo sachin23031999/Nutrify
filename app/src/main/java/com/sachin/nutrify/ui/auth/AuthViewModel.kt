@@ -1,21 +1,18 @@
 package com.sachin.nutrify.ui.auth
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sachin.nutrify.data.CredentialRepository
 import com.sachin.nutrify.data.AuthRepository
 import com.sachin.nutrify.model.User
-import com.sachin.nutrify.provider.GoogleAuthProvider
 import kotlinx.coroutines.launch
 
 class AuthViewModel(
-    private val credRepository: CredentialRepository,
-    private val authRepository: AuthRepository,
-    private val googleAuthProvider: GoogleAuthProvider
+    private val authRepository: AuthRepository
 ) : ViewModel() {
 
     private val _uiState = MutableLiveData<AuthState>()
@@ -24,18 +21,18 @@ class AuthViewModel(
 
     fun init(activity: Activity) {
         viewModelScope.launch {
-            googleAuthProvider.init(activity)
+            authRepository.init(activity)
             _uiState.postValue(AuthState.InitSuccess)
         }
     }
 
     fun signIn(activity: Activity, id: String, pass: String) {
         viewModelScope.launch {
-            credRepository.signIn(activity, id, pass)
+            authRepository.signIn(activity, id, pass)
         }
     }
 
-    fun signInIntent() = googleAuthProvider.getSignInIntent()
+    fun signInIntent() = authRepository.getSignInIntent()
 
     fun updateAccount(user: User) {
         viewModelScope.launch {
@@ -43,8 +40,9 @@ class AuthViewModel(
         }
     }
 
-    fun isUserLoggedIn(): Boolean =
-        authRepository.getAccountDetails() != null
+    fun isUserLoggedIn(context: Context): Boolean =
+        authRepository.isLoggedIn(context)
+
     fun getLoginDetails(data: Intent): User? =
-        googleAuthProvider.getSignInDetails(data)
+        authRepository.getAccountDetails(data)
 }
